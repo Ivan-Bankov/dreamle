@@ -1,0 +1,265 @@
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    background-color: hsl(0, 0%, 96%);
+    display: flex;
+    flex-direction: column;
+    min-height: 100lvh;
+    padding: 1em;
+    font-size: clamp(0.6rem, 2.5vmin, 1.8rem);
+}
+
+/* STYLING THE DISCLAIMER */
+
+.disclaimer-container {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    position: fixed;
+    top: 10vh;
+    left: 50vw;
+    transform: translateX(-50%);
+    background-color: hsl(0, 0%, 0%);
+    color: hsl(0, 0%, 96%);
+    padding: 0.75em;
+    border-radius: 0.25em;
+    transition: display 500ms ease-in-out;
+    z-index: 1;
+}
+
+.disclaimer-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 1rem;
+}
+
+.disclaimer-info > a {
+    color: hsl(0, 0%, 96%);
+}
+
+.disclaimer-btn {
+    border: none;
+    background-color: hsl(0, 0%, 0%);
+    border: none;
+    cursor: pointer;
+}
+
+.disclaimer-btn > img {
+    width: clamp(0.6em, 5vmin, 3em);
+    height: clamp(0.6em, 5vmin, 3em);
+}
+
+/* END OF STYLING THE DISCLAIMER */
+
+/* STYLING THE HEADER */
+
+.header {
+    display: grid;
+    grid-template-columns: auto max-content;
+    padding: 0.25em;
+    border-bottom: 0.05em solid hsl(214, 9%, 84%);
+    width: 100%;
+}
+
+.game-title {
+    font-size: clamp(0.6em, 1.8em, 2.4em);
+}
+
+.header-btns {
+    display: flex;
+}
+
+.header-btn {
+    border: none;
+    background-color: hsl(0, 0%, 96%);
+    cursor: pointer;
+    padding-left: clamp(0.25em, 5vmin, 1em);
+    padding-right: clamp(0.25em, 5vmin, 1em);
+}
+
+.header-btn > img, .header-btn > a > img {
+    width: clamp(0.6em, 5vmin, 3em);
+    height: clamp(0.6em, 5vmin, 3em);
+}
+
+/* END OF STYLING THE HEADER */
+
+/* STYLING THE KEYBOARD */
+
+.keyboard {
+    display: grid;
+    grid-template-columns: repeat(20, minmax(auto, 1.2em));
+    grid-auto-rows: 3em;
+    gap: 0.25em;
+    justify-content: center;
+}
+
+.key {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    border-radius: 0.25em;
+    font-size: inherit;
+    grid-column: span 2;
+    background-color: hsl(
+        var(--hue, 214),
+        var(--saturation, 9%),
+        calc(var(--lightness-offset, 0%) + var(--lightness, 84%))
+    );
+    text-transform: uppercase;
+    cursor: pointer;
+    user-select: none;
+}
+
+.key:hover, .key:focus {
+    --lightness-offset: 3%;
+}
+
+.key > svg {
+    width: 1.75em;
+    height: 1.75em;
+}
+
+.large {
+    grid-column: span 3;
+}
+
+.key.wrong {
+    --lightness: 23%;
+    color: hsl(0, 0%, 96%);
+}
+
+.key.wrong-location {
+    --hue: 49;
+    --saturation: 51%;
+    --lightness: 59%;
+    color: hsl(0, 0%, 96%);
+}
+
+.key.correct {
+    --hue: 115;
+    --saturation: 29%;
+    --lightness: 53%;
+    color: hsl(0, 0%, 96%);
+}
+
+/* END OF STYLING THE KEYBOARD */
+
+/* STYLING THE GRID */
+
+.guess-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 3.5em);
+    grid-template-rows: repeat(6, 3.5em);
+    justify-content: center;
+    align-content: center;
+    flex-grow: 1;
+    gap: 0.25em;
+    margin: 1.75em 0;
+}
+
+.tile {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 0.05em solid hsl(214, 9%, 84%);
+    font-size: 1.8em;
+    text-transform: uppercase;
+    font-weight: bold;
+    user-select: none;
+    transition: transform 250ms linear;
+}
+
+.tile[data-state="active"] {
+    border-color: hsl(0, 0%, 0%);
+}
+
+.tile[data-state="wrong"] {
+    border: none;
+    color: hsl(0, 0%, 96%);
+    background-color: hsl(0, 0%, 23%);
+}
+
+.tile[data-state="wrong-location"] {
+    border: none;
+    color: hsl(0, 0%, 96%);
+    background-color: hsl(49, 51%, 59%);
+}
+
+.tile[data-state="correct"] {
+    border: none;
+    color: hsl(0, 0%, 96%);
+    background-color: hsl(115, 29%, 53%);
+}
+
+.tile.shake {
+    animation: shake 250ms ease-in-out;
+}
+
+.tile.flip {
+    transform: rotateX(90deg);
+}
+
+.tile.dance {
+    animation: dance 500ms ease-in-out;
+}
+
+@keyframes shake {
+    10% {transform: translateX(-5%);}
+    30% {transform: translateX(5%);}
+    50% {transform: translateX(-7.5%);}
+    70% {transform: translateX(7.5%);}
+    90% {transform: translateX(5%);}
+    100% {transform: translateX(0);}
+}
+
+@keyframes dance {
+    20% {transform: translateY(-50%);}
+    40% {transform: translateY(5%);}
+    60% {transform: translateY(-25%);}
+    80% {transform: translateY(2.5%);}
+    90% {transform: translateY(-5%);}
+    100% {transform: translateY(0);}
+}
+
+/* END OF STYLING THE GRID */
+
+/* STYLING THE ALERTS */
+
+.alert-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: fixed;
+    top: 10vh;
+    left: 50vw;
+    transform: translateX(-50%);
+    z-index: 1;
+}
+
+.alert {
+    pointer-events: none;
+    background-color: hsl(0, 0%, 0%);
+    color: hsl(0, 0%, 96%);
+    padding: 0.75em;
+    border-radius: 0.25em;
+    opacity: 1;
+    transition: opacity 500ms ease-in-out;
+    margin-bottom: 0.5em;
+}
+
+.alert:last-child {
+    margin-bottom: 0;
+}
+
+.alert.hide {
+    opacity: 0;
+}

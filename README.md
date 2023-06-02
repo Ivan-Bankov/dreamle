@@ -1,6 +1,6 @@
 # Dreamle
 ## What it does:
-Dreamle is a clone of the famous Wordle game by The New York Times.
+Dreamle is a fully responsive clone of the famous Wordle game by The New York Times.
 ## Technologies used:
 Dreamle is a JavaScript-based app with some HTML and CSS. It's written in Visual Studio Code.
 ## Why said technologies:
